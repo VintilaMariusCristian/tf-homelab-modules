@@ -19,7 +19,7 @@ resource "proxmox_vm_qemu" "vm" {
   vmid        = each.value.vmid
   name        = each.value.hostname
   target_node = coalesce(each.value.node, var.default_vm_node)
-
+  tags = lookup(each.value, "tags", "")
   # Clone from your Packer-built, Cloud-Init–ready Proxmox template
   clone      = each.value.template
   full_clone = true
